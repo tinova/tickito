@@ -67,6 +67,8 @@ lastPriceDot = 0
 lastPriceBnb = 0
 lastPriceCake = 0
 lastPriceDoge = 0
+lastPriceCro = 0
+lastPriceRose = 0
 
 # Preload btc price before beginning while loop
 def fetch_price(symbol, currency):
