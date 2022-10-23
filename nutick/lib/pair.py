@@ -40,8 +40,8 @@ class Pair:
             2 if price remains the same
         """
         if self.lastPrice == newPrice:
-            return 2
+            return "😬"
         elif self.lastPrice > newPrice:
-            return 1
+            return "▼"
         elif self.lastPrice < newPrice:
-            return 0
+            return "▲"

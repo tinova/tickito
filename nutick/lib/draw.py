@@ -36,8 +36,17 @@ class Draw:
         font: default font
     """
 
-    def __init__(self):
+    # Currency symbol constants
+    CURRENCY_SYMBOL = {
+        "USD": "$",
+        "EUR": "€"
+    }
+
+    def __init__(self, config):
         """ Initialize I2C iterface and clear OLED display."""
+        # Save config
+        self.config = config
+
         # Create the I2C interface.
         i2c = busio.I2C(SCL, SDA)
 
@@ -62,20 +71,23 @@ class Draw:
         # Draw a black filled box to clear the image.
         self.draw.rectangle((0, 0, self.width, self.height), outline=0, fill=0)
 
-
         # Load default font.
-        self.font = ImageFont.load_default()
+        # self.font = ImageFont.load_default()
 
         # Alternatively load a TTF font.  Make sure the .ttf font file is in the
         # same directory as the python script!
         # Some other nice fonts to try: http://www.dafont.com/bitmap.php
-        # font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 9)
+        self.font = ImageFont.truetype('DejaVuSans.ttf', 9)
 
 
     def showOnScreen(self, pair, newPrice):
+        """ Output a pair price on the OLED display."""
         padding = -2
         top = padding
         bottom = self.height - padding
+
+        currency_symbol = self.CURRENCY_SYMBOL[pair.quote]
+        arrow = str(pair.arrow_dir(newPrice))
 
         # Draw a black filled box to clear the image.
         self.draw.rectangle((0, 0, self.width, self.height), outline=0, fill=0)
@@ -84,10 +96,10 @@ class Draw:
         self.draw.text((0, top+0), time.strftime("%H:%M:%S    %m/%d/%y"), font=self.font, fill=255)
 
         # Draw ticket value on screen
-        self.draw.text((0, top+25), "     $" + str(newPrice) + "/" + pair.base + " ", font=self.font, fill=255)
+        self.draw.text((0, top+25), "     " + currency_symbol + str(newPrice) + "/" + pair.base + " " + arrow, font=self.font, fill=255)
 
         # Output to stdout for debugging
-        print("$" + str(newPrice) + "/" + pair.base + " " + str(pair.arrow_dir(newPrice)) + "\n")
+        print(currency_symbol + str(newPrice) + "/" + pair.base + " " + arrow + "\n")
 
         # Update price of the pair
         pair.lastPrice = newPrice

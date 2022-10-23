@@ -1,0 +1,14 @@
+# Get your API token in https://www.cryptocompare.com, free tier allows 100k hits per month
+cryptocompare_api_token: ''
+
+# List of Pairs to be displayed
+# ['TOKEN', 'CURRENCY', seconds-on-screen]
+pairs:
+  - ["BTC" , "USD", 90]
+  - ["BTC" , "EUR", 60]
+  - ["ETH" , "EUR", 60]
+  - ["DOT" , "EUR", 30]
+  - ["BNB" , "EUR", 60]
+  - ["DOGE", "EUR", 60]
+  - ["CRO" , "EUR", 60]
+  - ["ROSE", "EUR", 60]
