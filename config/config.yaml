@@ -2,7 +2,7 @@
 cryptocompare_api_token: ''
 
 # TrueType Font with good unicode coverage.
-# Make sure it is installed in your systemo or in the root of the project.
+# Make sure it is installed in your system or in the root of the project.
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 font_for_display: 'DejaVuSans.ttf'
 
