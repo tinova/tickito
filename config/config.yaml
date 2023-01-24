@@ -1,5 +1,10 @@
-# Get your API token in https://www.cryptocompare.com, free tier allows 100k hits per month
+# Get your API token in https://www.cryptocompare.com, free tier allows 100k hits per month.
 cryptocompare_api_token: ''
+
+# TrueType Font with good unicode coverage.
+# Make sure it is installed in your systemo or in the root of the project.
+# Some other nice fonts to try: http://www.dafont.com/bitmap.php
+font_for_display: 'DejaVuSans.ttf'
 
 # List of Pairs to be displayed
 # ['TOKEN', 'CURRENCY', seconds-on-screen]

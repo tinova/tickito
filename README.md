@@ -17,28 +17,48 @@
 
 * Code based on ticker by anonananananabatman https://www.instructables.com/Cryptocurrency-Ticker/
 
-## Install
+
+## Requirements
+
+### Hardware
+
+* raspberry pi
+* 128x32 I2C display
+
+### Software
+
+* python3 / pip3
+* TrueType font, defaults to DejaVuSans.ttf, but it can be changed (see Configuration below). Needs to be installed in your system
 
 ### Ticker Source
 
 You'll need an API key from [CyptoCompare](https://www.cryptocompare.com "CyptoCompare").
 
-### Setting Up
+## Install
 
 ```sh
 $ pip3 install adafruit-circuitpython-ssd1306 pyyaml
 $ git clone https://github.com/tinova/tickito.git
+$ cd tickito
  ```
-### 
 
+## Configuration
 
+There are three configuration parameters in lib/config.yaml
 
+* cryptocompare_api_token needs to be set to your CryptoCompare API key
+* font_for_display can be changed to your desired TrueType font (needs to be installed in your system)
+* pairs is an array containing the trade pairs you want to display the price of. Each element of the array is a 3-tuple:
 
-<!-- USAGE EXAMPLES -->
+    ['TOKEN', 'CURRENCY', seconds-on-screen]
+
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+```sh
+$ python3 tickito.py
+```
+<hr>
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Contributions are welcome!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

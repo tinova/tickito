@@ -8,7 +8,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0                                 #
 #--------------------------------------------------------------------------- #
 
-
 import time
 import subprocess
 
@@ -21,8 +20,7 @@ import adafruit_ssd1306
 class Draw:
     """Draw on a 128x32 OLED I2C screen
 
-    Format on the screen is limited to two sections
-
+    Format on the screen is limited to two sections:
 
       Date Time
 
@@ -43,7 +41,11 @@ class Draw:
     }
 
     def __init__(self, config):
-        """ Initialize I2C iterface and clear OLED display."""
+        """ Initialize I2C iterface and clear OLED display.
+
+            Args:
+                config: configuration parameters extracted from config.yaml
+        """
         # Save config
         self.config = config
 
@@ -71,17 +73,16 @@ class Draw:
         # Draw a black filled box to clear the image.
         self.draw.rectangle((0, 0, self.width, self.height), outline=0, fill=0)
 
-        # Load default font.
-        # self.font = ImageFont.load_default()
-
-        # Alternatively load a TTF font.  Make sure the .ttf font file is in the
-        # same directory as the python script!
-        # Some other nice fonts to try: http://www.dafont.com/bitmap.php
-        self.font = ImageFont.truetype('DejaVuSans.ttf', 9)
-
+        # Load a TTF font, make sure the .ttf font is installed in your system
+        self.font = ImageFont.truetype(self.config.font_for_display, 9)
 
     def showOnScreen(self, pair, newPrice):
-        """ Output a pair price on the OLED display."""
+        """ Output a pair price on the OLED display.
+
+        Args:
+            pair: abstraction of a trade pair
+            newPrice: new pair price to display
+        """
         padding = -2
         top = padding
         bottom = self.height - padding
@@ -96,10 +97,11 @@ class Draw:
         self.draw.text((0, top+0), time.strftime("%H:%M:%S    %m/%d/%y"), font=self.font, fill=255)
 
         # Draw ticket value on screen
-        self.draw.text((0, top+25), "     " + currency_symbol + str(newPrice) + "/" + pair.base + " " + arrow, font=self.font, fill=255)
+        line_str =  currency_symbol + str(newPrice) + "/" + pair.base + " " + arrow
+        self.draw.text((0, top+25), "     " + line_str , font=self.font, fill=255)
 
         # Output to stdout for debugging
-        print(currency_symbol + str(newPrice) + "/" + pair.base + " " + arrow + "\n")
+        print(line_str + "\n")
 
         # Update price of the pair
         pair.lastPrice = newPrice
