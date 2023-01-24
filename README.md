@@ -11,24 +11,22 @@
   </p>
 </div>
 
-## Ackowledgedments
+## Ackowledgedments
 
 * Logo found in Freepik by WangXiNa  (❤)
-
 * Code based on ticker by anonananananabatman https://www.instructables.com/Cryptocurrency-Ticker/
 
+## Requirements
 
-## Requirements
-
-### Hardware
+### Hardware
 
 * raspberry pi
 * 128x32 I2C display
 
-### Software
+### Software
 
 * python3 / pip3
-* TrueType font, defaults to DejaVuSans.ttf, but it can be changed (see Configuration below). Needs to be installed in your system
+* TrueType font, defaults to DejaVuSans.ttf, but it can be changed (see [Configuration](#configuration) below). Needs to be installed in your system
 
 ### Ticker Source
 
@@ -42,7 +40,7 @@ $ git clone https://github.com/tinova/tickito.git
 $ cd tickito
  ```
 
-## Configuration
+## Configuration
 
 There are three configuration parameters in lib/config.yaml
 
