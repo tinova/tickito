@@ -5,6 +5,15 @@ import requests
 import json
 import sys
 
+# Get the arguments
+
+if len(sys.argv) > 0 && sys.argv[1] == "-h":
+    print("tickito fetches price pair updates and prints it to both the terminal and a i2c 128x32 raspberry attached OELD display"
+    print(" - check http://github.com/tinova/tickito/README.md for the must haves")
+    print(" - set the needed info in config/config.yaml")
+    print(" - run tickito.py without arguments to start")
+    sys.exit()
+
 # Preload btc price before beginning while loop
 def fetch_price(symbol, currency):
     try:
@@ -17,31 +26,38 @@ def fetch_price(symbol, currency):
     except requests.ConnectionError:
         print ("Error querying Crytocompare API")
 
-# Define currency pairs Array
-listOfPairs = []
-
-listOfPairs.append(pair.Pair("BTC","USD",120))
-listOfPairs.append(pair.Pair("BTC","EUR",60))
-listOfPairs.append(pair.Pair("ETH","EUR",60))
-listOfPairs.append(pair.Pair("DOT","EUR",30))
-listOfPairs.append(pair.Pair("BNB","EUR",60))
-listOfPairs.append(pair.Pair("DOGE","EUR",60))
-listOfPairs.append(pair.Pair("CRO","EUR",60))
-listOfPairs.append(pair.Pair("ROSE","EUR",60))
-
-
 with open("config/config.yaml", "r") as yamlfile:
     config = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+if (config["pairs"] is None or len(config["pairs"] < 1 or
+    config['cryptocompare_api_token'] is None):
+    print("config.yaml is malformed")
+    sys.exit()
+
+# Load the list of pairs
+listOfPairs = []
+for one_pair in config["pairs"]:
+    base = one_pair[0]
+    quote = one_pair[1]
+    timeOnScreen = 60
+    if not one_pair[2] is None:
+        timeOnScreen = one_pair[2]
+    listOfPairs.append(pair.Pair(base, quote, timeOnScreen))
 
 # Initialize OLED screen
 draw_oled = draw.Draw()
 
+# Ready to go
+
+puts "tickito starting ...\n"
+
 # TODO: Is this needed?
-time.sleep(1)
+# time.sleep(1)
 
 while True:
     try:
         for pair in listOfPairs:
+            print("fetching new price update for " + pair.base + "/" + pair.quote + ": ")
             newPrice = fetch_price(pair.base,pair.quote)
             draw_oled.showOnScreen(pair,newPrice)
 
