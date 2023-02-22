@@ -74,7 +74,7 @@ class Draw:
         self.draw.rectangle((0, 0, self.width, self.height), outline=0, fill=0)
 
         # Load a TTF font, make sure the .ttf font is installed in your system
-        self.font = ImageFont.truetype(self.config.font_for_display, 9)
+        self.font = ImageFont.truetype(self.config['font_for_display'], 9)
 
     def showOnScreen(self, pair, newPrice):
         """ Output a pair price on the OLED display.
